@@ -42,7 +42,7 @@ chains:
     wrapped_native: "0x78c1b0c915c4faa5fffa6cabf0219da63d7f4cb8"
     
   unichain:
-    id: "1301"
+    id: "130"
     name: "Unichain"
     native_token: "ETH"
     wrapped_native: "0x4200000000000000000000000000000000000006"
