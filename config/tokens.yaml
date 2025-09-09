@@ -1,0 +1,135 @@
+chains:
+  ethereum:
+    id: "1"
+    name: "Ethereum"
+    native_token: "ETH"
+    wrapped_native: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+    
+  arbitrum:
+    id: "42161"
+    name: "Arbitrum One"
+    native_token: "ETH"
+    wrapped_native: "0x82af49447d8a07e3bd95bd0d56f35241523fbab1"
+    
+  base:
+    id: "8453"
+    name: "Base"
+    native_token: "ETH"
+    wrapped_native: "0x4200000000000000000000000000000000000006"
+    
+  optimism:
+    id: "10"
+    name: "Optimism"
+    native_token: "ETH"
+    wrapped_native: "0x4200000000000000000000000000000000000006"
+    
+  linea:
+    id: "59144"
+    name: "Linea"
+    native_token: "ETH"
+    wrapped_native: "0xe5d7c2a44ffddf6b295a15c148167daaaf5cf34f"
+    
+  fraxtal:
+    id: "252"
+    name: "Fraxtal"
+    native_token: "ETH"
+    wrapped_native: "0xfc00000000000000000000000000000000000004"
+    
+  mantle:
+    id: "5000"
+    name: "Mantle"
+    native_token: "MNT"
+    wrapped_native: "0x78c1b0c915c4faa5fffa6cabf0219da63d7f4cb8"
+    
+  unichain:
+    id: "1301"
+    name: "Unichain"
+    native_token: "ETH"
+    wrapped_native: "0x4200000000000000000000000000000000000006"
+    
+  polygon:
+    id: "137"
+    name: "Polygon"
+    native_token: "MATIC"
+    wrapped_native: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270"
+
+tokens:
+  cbETH:
+    name: "Coinbase Wrapped Staked ETH"
+    symbol: "cbETH"
+    decimals: 18
+    exchange_rate_api: "https://api-public.sandbox.pro.coinbase.com/wrapped-assets/CBETH/conversion-rate"
+    addresses:
+      ethereum: "0xbe9895146f7af43049ca1c1ae358b0541ea49704"
+      arbitrum: "0x2ae3f1ec7f1f5012cfeab0185bfc7aa3cf0dec22"
+      base: "0x1debd73e752beaf79865fd6446b0c970eae7732f"
+      
+  wstETH:
+    name: "Wrapped Staked ETH"
+    symbol: "wstETH"
+    decimals: 18
+    exchange_rate_api: "https://api.lido.fi/v1/steth/price"
+    addresses:
+      ethereum: "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0"
+      arbitrum: "0x5979D7b546E38E414F7E9822514be443A4800529"
+      base: "0xc1cba3fcea344f92d9239c08c0568f6f2f0ee452"
+      linea: "0xB5beDd42000b71FddE22D3eE8a79Bd49A568fC8F"
+      unichain: "0xc02fe7317d4eb8753a02c35fe019786854a92001"
+      polygon: "0x03b54a6e9a984069379fae1a4fc4dbae93b3bccd"
+      
+  stETH:
+    name: "Staked ETH"
+    symbol: "stETH"
+    decimals: 18
+    exchange_rate_api: "https://api.lido.fi/v1/steth/price"
+    addresses:
+      ethereum: "0xae7ab96520de3a18e5e111b5eaab095312d7fe84"
+      
+  frxETH:
+    name: "Frax Ether"
+    symbol: "frxETH"
+    decimals: 18
+    exchange_rate_api: null  # Need to implement on-chain query
+    addresses:
+      ethereum: "0x5e8422345238f34275888049021821e8e08caa1f"
+      linea: "0xb1afd04774c02ae84692619448b08ba79f19b1ff"
+      fraxtal: "0xfc00000000000000000000000000000000000006"
+      
+  sfrxETH:
+    name: "Staked Frax Ether"
+    symbol: "sfrxETH"
+    decimals: 18
+    exchange_rate_api: null  # Need to implement on-chain query
+    addresses:
+      ethereum: "0xac3e018457b222d93114458476f3e3416abbe38f"
+      optimism: "0x484c2d6e3cdd945a8b2df735e079178c1036578c"
+      
+  METH:
+    name: "Mantle Staked ETH"
+    symbol: "METH"
+    decimals: 18
+    exchange_rate_api: null  # Need to implement
+    addresses:
+      mantle: "0xcda86a272531e8640cd7f1a92c01839911b90bb0"
+      ethereum: "0xd5f7838f5c461feff7fe49ea5ebaf7728bb0adfa"
+
+providers:
+  odos:
+    base_url: "https://api.odos.xyz"
+    supported_chains:
+      - ethereum
+      - arbitrum
+      - base
+      - optimism
+      - linea
+      - fraxtal
+      - polygon
+      
+  oneinch:
+    base_url: "https://api.1inch.dev"
+    supported_chains:
+      - ethereum
+      - arbitrum
+      - base
+      - optimism
+      - polygon
