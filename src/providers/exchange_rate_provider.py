@@ -12,6 +12,7 @@ class ExchangeRateProvider:
     def __init__(self):
         self.session: Optional[ClientSession] = None
         self._rate_cache: Dict[str, Decimal] = {}
+        # Right now _rate_cache is permanent for the session, might wanna implement timestamp-based cache
 
     async def __aenter__(self):
         """Async context manager entry."""
@@ -37,56 +38,33 @@ class ExchangeRateProvider:
         if token.symbol in self._rate_cache:
             return self._rate_cache[token.symbol]
 
-        rate = None
+        rate = await self._fetch_exchange_rate(token)
 
-        if token.symbol == "cbETH":
-            rate = await self._get_cbeth_rate(token)
-        elif token.symbol in ["stETH", "wstETH"]:
-            rate = await self._get_lido_rate(token)
-        elif token.symbol in ["frxETH", "sfrxETH"]:
-            rate = await self._get_frax_rate(token)
-        elif token.symbol == "METH":
-            rate = await self._get_meth_rate(token)
-
-        if rate:
-            self._rate_cache[token.symbol] = rate
+        if rate is not None:
+            self._rate_cache[token.symbol] = rate # Cache the rate
 
         return rate
 
-    async def _get_cbeth_rate(self, token: Token) -> Optional[Decimal]:
-        """Fetch cbETH exchange rate from Coinbase API."""
+    async def _fetch_exchange_rate(self, token: Token) -> Optional[Decimal]:
+        """Fetch exchange rate based on token type."""
         if not self.session:
             raise RuntimeError("Session not initialized")
-
-        if not token.exchange_rate_api:
+        if not token.exchange_rate_api or not token.exchange_rate_field:
             return None
 
         try:
             async with self.session.get(token.exchange_rate_api) as response:
                 if response.status == 200:
                     data = await response.json()
-                    rate = Decimal(str(data.get('amount', 1)))
-                    return rate
-        except Exception:
-            pass
-
-        return None
-
-    async def _get_lido_rate(self, token: Token) -> Optional[Decimal]:
-        """Fetch stETH/wstETH exchange rate from Lido API."""
-        if not self.session:
-            raise RuntimeError("Session not initialized")
-
-        if not token.exchange_rate_api:
+                    field = token.exchange_rate_field
+                    if field in data:
+                        rate = Decimal(str(data.get(field)))
+                        return rate
+                    return None
+        except Exception as e:
+            print(f"Error fetching rate for {token.symbol}: {e}")
             return None
 
-        try:
-            async with self.session.get(token.exchange_rate_api) as response:
-                if response.status == 200:
-                    data = await response.json()
-                    rate = Decimal(str(data.get('stEthExchangeRate', 1)))
-                    return rate
-        except Exception:
-            pass
-
-        return None
+    def clear_cache(self):
+        """Clear the rate cache."""
+        self._rate_cache.clear()

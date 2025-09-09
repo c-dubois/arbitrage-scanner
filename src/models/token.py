@@ -11,6 +11,7 @@ class Token:
     decimals: int
     addresses: Dict[str, str] = field(default_factory=dict)
     exchange_rate_api: Optional[str] = None
+    exchange_rate_field: Optional[str] = None
 
     def get_address(self, chain_name: str) -> Optional[str]:
         """Get token address for a specific chain."""
