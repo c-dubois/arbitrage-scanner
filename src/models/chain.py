@@ -12,14 +12,14 @@ class Chain:
 
     def __hash__(self):
         return hash(self.id)
-    
+
     def __eq__(self, other):
         if isinstance(other, Chain):
             return self.id == other.id
         return False
-    
+
     def __str__(self):
         return self.name
-    
+
     def __repr__(self):
         return f"Chain(name={self.name}, id={self.id})"
