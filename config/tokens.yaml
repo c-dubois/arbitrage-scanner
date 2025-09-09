@@ -59,6 +59,7 @@ tokens:
     symbol: "cbETH"
     decimals: 18
     exchange_rate_api: "https://api-public.sandbox.pro.coinbase.com/wrapped-assets/CBETH/conversion-rate"
+    exchange_rate_field: "amount"
     addresses:
       ethereum: "0xbe9895146f7af43049ca1c1ae358b0541ea49704"
       arbitrum: "0x2ae3f1ec7f1f5012cfeab0185bfc7aa3cf0dec22"
@@ -69,6 +70,7 @@ tokens:
     symbol: "wstETH"
     decimals: 18
     exchange_rate_api: "https://api.lido.fi/v1/steth/price"
+    exchange_rate_field: "stEthExchangeRate"
     addresses:
       ethereum: "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0"
       arbitrum: "0x5979D7b546E38E414F7E9822514be443A4800529"
@@ -82,6 +84,7 @@ tokens:
     symbol: "stETH"
     decimals: 18
     exchange_rate_api: "https://api.lido.fi/v1/steth/price"
+    exchange_rate_field: "stEthExchangeRate"
     addresses:
       ethereum: "0xae7ab96520de3a18e5e111b5eaab095312d7fe84"
       
