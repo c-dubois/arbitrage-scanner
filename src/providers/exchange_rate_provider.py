@@ -13,6 +13,9 @@ class ExchangeRateProvider:
         self.session: Optional[ClientSession] = None
         self._rate_cache: Dict[str, Decimal] = {}
         # Right now _rate_cache is permanent for the session, might wanna implement timestamp-based cache
+        # possible improvement: use TTLCache from cachetools for automatic expiration
+        # self._rate_cache: Dict[str, tuple[Decimal, float]] = {}
+        # where you store (rate, timestamp) and add an expiry check in get_exchange_rate.
 
     async def __aenter__(self):
         """Async context manager entry."""
@@ -58,11 +61,11 @@ class ExchangeRateProvider:
                     data = await response.json()
                     field = token.exchange_rate_field
                     if field in data:
-                        rate = Decimal(str(data.get(field)))
+                        rate = Decimal(str(data[field]))
                         return rate
                     return None
         except Exception as e:
-            print(f"Error fetching rate for {token.symbol}: {e}")
+            print(f"Error fetching rate for {token.symbol} from {token.exchange_rate_api}: {e}")
             return None
 
     def clear_cache(self):
