@@ -26,7 +26,7 @@ class APIRateProvider(BaseRateProvider):
             await self.session.close()
 
     @property
-    def supported_tokens(self) -> Set[str]:
+    def get_supported_tokens(self) -> Set[str]:
         """Return a set of supported token symbols."""
         return self.SUPPORTED_TOKENS
 
