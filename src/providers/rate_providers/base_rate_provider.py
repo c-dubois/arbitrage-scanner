@@ -1,6 +1,9 @@
+"""Base class for exchange rate providers."""
+
 from abc import ABC, abstractmethod
 from decimal import Decimal
-from typing import Optional
+from typing import Optional, Set
+
 from ...models.token import Token
 
 class BaseRateProvider(ABC):
@@ -21,9 +24,19 @@ class BaseRateProvider(ABC):
 
     @abstractmethod
     def supports_token(self, token: Token) -> bool:
-        """Check if the provider supports the given token."""
+        """Check if the provider supports the given token.
+        Args:
+            token: The token to check.
+        Returns:
+            True if supported, False otherwise."""
         pass
-
+    
+    @property
+    @abstractmethod
+    def supported_tokens(self) -> Set[str]:
+        """Return a set of supported token symbols."""
+        pass
+    
     @abstractmethod
     def clear_cache(self):
         """Clear any cached exchange rates."""
