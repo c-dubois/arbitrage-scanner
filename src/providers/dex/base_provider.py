@@ -7,7 +7,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 from ...models.chain import Chain
 from ...models.token import Token
 
-class BaseProvider(ABC):
+class BaseDexProvider(ABC):
     """Abstract base class for DEX aggregator providers."""
 
     def __init__(self, api_key: Optional[str] = None, timeout: int = 30):
