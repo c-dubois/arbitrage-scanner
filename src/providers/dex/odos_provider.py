@@ -4,8 +4,8 @@ from decimal import Decimal
 from typing import Optional, Dict, Any
 
 from .base_provider import BaseProvider
-from ..models.chain import Chain
-from ..models.token import Token
+from ...models.chain import Chain
+from ...models.token import Token
 
 class OdosProvider(BaseProvider):
     """ODOS DEX aggregator provider."""
@@ -62,5 +62,5 @@ class OdosProvider(BaseProvider):
 
         payload = {
             "chainID": int(chain.id),
-            
+
         }

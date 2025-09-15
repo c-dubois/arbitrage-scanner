@@ -1,0 +1,30 @@
+from abc import ABC, abstractmethod
+from decimal import Decimal
+from typing import Optional
+from ...models.token import Token
+
+class BaseRateProvider(ABC):
+    """Abstract base class for exchange rate providers."""
+    
+    @abstractmethod
+    async def get_exchange_rate(self, token: Token) -> Optional[Decimal]:
+        """
+        Fetch the exchange rate for a given token.
+        
+        Args:
+            token: The token for which to fetch the exchange rate.
+            
+        Returns:
+            The exchange rate as a Decimal, or None if unavailable.
+        """
+        pass
+
+    @abstractmethod
+    def supports_token(self, token: Token) -> bool:
+        """Check if the provider supports the given token."""
+        pass
+
+    @abstractmethod
+    def clear_cache(self):
+        """Clear any cached exchange rates."""
+        pass

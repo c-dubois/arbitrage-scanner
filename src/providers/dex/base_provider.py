@@ -4,8 +4,8 @@ from typing import Optional, Dict, Any
 from aiohttp import ClientSession, ClientTimeout
 from tenacity import retry, stop_after_attempt, wait_exponential
 
-from ..models.chain import Chain
-from ..models.token import Token
+from ...models.chain import Chain
+from ...models.token import Token
 
 class BaseProvider(ABC):
     """Abstract base class for DEX aggregator providers."""
