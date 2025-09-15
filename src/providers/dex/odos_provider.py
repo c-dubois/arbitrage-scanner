@@ -3,11 +3,11 @@
 from decimal import Decimal
 from typing import Optional, Dict, Any
 
-from .base_provider import BaseProvider
+from .base_dex_provider import BaseDexProvider
 from ...models.chain import Chain
 from ...models.token import Token
 
-class OdosProvider(BaseProvider):
+class OdosProvider(BaseDexProvider):
     """ODOS DEX aggregator provider."""
 
     BASE_URL = "https://api.odos.xyz"
