@@ -52,6 +52,7 @@ class BaseProvider(ABC):
         """Check if the provider supports the given chain."""
         pass
 
+    # potentially can use AsyncRetrying??
     @retry(
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=1, min=1, max=10)
