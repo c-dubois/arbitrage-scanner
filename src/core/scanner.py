@@ -2,7 +2,7 @@
 
 import asyncio
 from decimal import Decimal
-from typing import List, Dict, Any, Optional, Tuple
+from typing import List, Dict, Optional, Tuple
 from datetime import datetime
 
 from ..models.chain import Chain
