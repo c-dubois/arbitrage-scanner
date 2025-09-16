@@ -141,7 +141,7 @@ class OnchainRateProvider(BaseRateProvider):
                 contract = self._contract_cache[symbol]
             else:
                 contract = self.web3.eth.contract(
-                    address=self.w3.to_checksum_address(config['address']),
+                    address=self.web3.to_checksum_address(config['address']),
                     abi=config['abi']
                 )
                 self._contract_cache[symbol] = contract
