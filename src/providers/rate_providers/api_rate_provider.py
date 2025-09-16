@@ -79,6 +79,7 @@ class APIRateProvider(BaseRateProvider):
                     data = await response.json()
                     # Coinbase API returns rate in 'amount' field
                     rate = Decimal(str(data.get('amount', '1')))
+                    print(f"API rate for cbETH: {rate}")
                     return rate
                 else:
                     print(f"Failed to fetch cbETH rate: API returned status {response.status}")

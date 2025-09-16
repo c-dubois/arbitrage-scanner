@@ -1,73 +1,132 @@
-"""Provider for fetching exchange rates of liquid staking tokens."""
+"""Main redemption rate provider that coordinates API and on-chain sources with caching."""
 
 from decimal import Decimal
-from typing import Optional, Dict
-from aiohttp import ClientSession
+from time import time
+from typing import Optional, Dict, List, Tuple
 
+from .rate_providers.base_rate_provider import BaseRateProvider
+from .rate_providers.api_rate_provider import APIRateProvider
+from .rate_providers.onchain_rate_provider import OnchainRateProvider
 from ..models.token import Token
 
-class ExchangeRateProvider:
-    """Provider for fetching LST exchange rates."""
+#want to change this so api rate is not cached? since just cbeth?
 
-    def __init__(self):
-        self.session: Optional[ClientSession] = None
-        self._rate_cache: Dict[str, Decimal] = {}
-        # Right now _rate_cache is permanent for the session, might wanna implement timestamp-based cache
-        # possible improvement: use TTLCache from cachetools for automatic expiration
-        # self._rate_cache: Dict[str, tuple[Decimal, float]] = {}
-        # where you store (rate, timestamp) and add an expiry check in get_exchange_rate.
+class RedemptionRateProvider:
+    """
+    Coordinates redemption rate providers (API and on-chain) with TTL-based caching.
+    
+    This is the main interface for getting LST redemption rates (e.g., cbETH→ETH, wstETH→ETH).
+    It manages multiple sub-providers and caches results to minimize API/RPC calls.
+    """
+
+    def __init__(self, rpc_url: str = "https://eth.llamarpc.com", cache_ttl: int = 60):
+        """
+        Initialize the redemption rate provider.
+        
+        Args:
+            rpc_url: Ethereum RPC endpoint for on-chain calls
+            cache_ttl: Cache time-to-live in seconds (default: 60)
+        """
+        # Initialize sub-providers
+        self.api_provider = APIRateProvider()
+        self.onchain_provider = OnchainRateProvider(rpc_url)
+
+        # List of providers in priority order
+        self.providers: List[BaseRateProvider] = [
+            self.api_provider,      # Try API first (faster)
+            self.onchain_provider   # Fallback to on-chain if API fails
+        ]
+
+        # Cache with TTL: {token_symbol: (rate, timestamp)}
+        self._rate_cache: Dict[str, Tuple[Decimal, float]] = {}
+        self.cache_ttl = cache_ttl
+
+        print(f"Redemption rate cache TTL set to {self.cache_ttl} seconds")
 
     async def __aenter__(self):
-        """Async context manager entry."""
-        self.session = ClientSession()
+        """Async context manager entry: initialize sub-providers / async resources."""
+        await self.api_provider.__aenter__()
+        await self.onchain_provider.__aenter__()
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
-        """Async context manager exit."""
-        if self.session:
-            await self.session.close()
+        """Async context manager exit: close sub-providers / cleanup async resources."""
+        await self.api_provider.__aexit__(exc_type, exc_val, exc_tb)
+        await self.onchain_provider.__aexit__(exc_type, exc_val, exc_tb)
 
-    async def get_exchange_rate(self, token: Token) -> Optional[Decimal]:
+    def _is_cache_valid(self, token_symbol: str) -> bool:
+        """Check if the cached rate for the token is still valid based on TTL."""
+        if token_symbol in self._rate_cache:
+            _, timestamp = self._rate_cache[token_symbol]
+            if (time() - timestamp) < self.cache_ttl:
+                return True
+        return False
+    
+    async def get_redemption_rate(self, token: Token) -> Optional[Decimal]:
         """
-        Fetch the exchange rate for a liquid staking token (LST).
+        Get the redemption rate for a liquid staking token (LST).
 
+        Checks cache first, then tries each provider until a rate is found.
+        Returns None if no rate available (no fallback rates).
+        
         Args:
-            token: The liquid staking token
-
+            token: The liquid staking token (e.g., cbETH, wstETH)
+            
         Returns:
-            The exchange rate (LST/ETH) as a Decimal, or None if unavailable
+            The redemption rate (LST/ETH) as a Decimal, or None if unavailable
         """
         # Check cache first
-        if token.symbol in self._rate_cache:
-            return self._rate_cache[token.symbol]
+        if self._is_cache_valid(token.symbol):
+            rate, timestamp = self._rate_cache[token.symbol]
+            age = int(time() - timestamp)
+            print(f"Cache hit for {token.symbol}: {rate} (age: {age}s)")
+            return rate
 
-        rate = await self._fetch_exchange_rate(token)
+        # Try each provider in order until one returns a valid rate
+        for provider in self.providers:
+            if provider.supports_token(token):
+                try:
+                    rate = await provider.get_exchange_rate(token)
 
-        if rate is not None:
-            self._rate_cache[token.symbol] = rate # Cache the rate
-
-        return rate
-
-    async def _fetch_exchange_rate(self, token: Token) -> Optional[Decimal]:
-        """Fetch exchange rate based on token type."""
-        if not self.session:
-            raise RuntimeError("Session not initialized")
-        if not token.exchange_rate_api or not token.exchange_rate_field:
-            return None
-
-        try:
-            async with self.session.get(token.exchange_rate_api) as response:
-                if response.status == 200:
-                    data = await response.json()
-                    field = token.exchange_rate_field
-                    if field in data:
-                        rate = Decimal(str(data[field]))
+                    if rate is not None:
+                        # Cache the rate with current timestamp
+                        self._rate_cache[token.symbol] = (rate, time())
+                        provider_name = provider.__class__.__name__
+                        print(f"Got {token.symbol} rate from {provider_name}: {rate}")
                         return rate
-                    return None
-        except Exception as e:
-            print(f"Error fetching rate for {token.symbol} from {token.exchange_rate_api}: {e}")
-            return None
+                    
+                except Exception as e:
+                    provider_name = provider.__class__.__name__
+                    print(f"{provider_name} failed for {token.symbol}: {e}")
+                    continue
 
+        # All providers failed - return None (no fallback)
+        print(f"WARNING: Could not get redemption rate for {token.symbol} - skipping")
+        return None
+    
     def clear_cache(self):
-        """Clear the rate cache."""
+        """Clear the entire rate cache."""
         self._rate_cache.clear()
+        print("Redemption rate cache cleared")
+
+    def clear_token_cache(self, token_symbol: str):
+        """Clear the cache entry for a specific token."""
+        if token_symbol in self._rate_cache:
+            del self._rate_cache[token_symbol]
+            print(f"Cleared cache for {token_symbol}")
+
+    def get_cache_status(self) -> Dict[str, Dict[str, Optional[int]]]:
+        """Get the current cache status with token symbols and age in seconds for monitoring."""
+        status = {}
+        current_time = time()
+
+        for symbol, (rate, timestamp) in self._rate_cache.items():
+            age = int(current_time - timestamp)
+            status[symbol] = {
+                'rate': float(rate),
+                'age_seconds': age,
+                'is_valid': age < self.cache_ttl,
+                'expires_in_seconds': max(0, self.cache_ttl - age)
+            }
+
+        return status
