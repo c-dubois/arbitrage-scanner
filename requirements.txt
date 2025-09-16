@@ -8,6 +8,7 @@ certifi==2025.8.3
 charset-normalizer==3.4.3
 ckzg==2.1.2
 cytoolz==1.0.1
+dotenv==0.9.9
 eth-account==0.13.7
 eth-hash==0.7.1
 eth-keyfile==0.8.1
@@ -25,7 +26,9 @@ propcache==0.3.2
 pycryptodome==3.23.0
 pydantic==2.11.9
 pydantic_core==2.33.2
+python-dotenv==1.1.1
 pyunormalize==16.0.0
+PyYAML==6.0.2
 regex==2025.9.1
 requests==2.32.5
 rlp==4.1.0
