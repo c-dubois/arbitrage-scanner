@@ -36,8 +36,3 @@ class BaseRateProvider(ABC):
     def get_supported_tokens(self) -> Set[str]:
         """Return a set of supported token symbols."""
         pass
-
-    @abstractmethod
-    def clear_cache(self):
-        """Clear any cached exchange rates."""
-        pass
