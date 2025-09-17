@@ -79,7 +79,7 @@ class Settings:
                 name=token_data['name'],
                 symbol=token_data['symbol'],
                 decimals=token_data['decimals'],
-                address=token_data.get("addresses", {})
+                addresses=token_data.get("addresses", {})
             )
             tokens[token_symbol] = token
         return tokens
