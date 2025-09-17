@@ -118,7 +118,10 @@ class ArbitrageScanner:
         Returns:
             An ArbitrageOpportunity object if found, else None.
         """
-        base_token = self.tokens.get(chain.native_token)
+        # base_token = self.tokens.get(chain.native_token)
+        base_t
+        print(self.tokens)
+        print(chain.native_token)
 
         # Get a quote for base_token -> token
         quote = await dex_provider.get_quote(

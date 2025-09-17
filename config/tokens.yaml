@@ -40,6 +40,9 @@ chains:
     name: "Mantle"
     native_token: "MNT"
     wrapped_native: "0x78c1b0c915c4faa5fffa6cabf0219da63d7f4cb8"
+    base_token: "ETH"
+    wrapped_base: "0xdEAddEaDdeadDEadDEADDEAddEADDEAddead1111"
+
     
   unichain:
     id: "130"
@@ -58,8 +61,6 @@ tokens:
     name: "Coinbase Wrapped Staked ETH"
     symbol: "cbETH"
     decimals: 18
-    exchange_rate_api: "https://api-public.sandbox.pro.coinbase.com/wrapped-assets/CBETH/conversion-rate"
-    exchange_rate_field: "amount"
     addresses:
       ethereum: "0xbe9895146f7af43049ca1c1ae358b0541ea49704"
       arbitrum: "0x2ae3f1ec7f1f5012cfeab0185bfc7aa3cf0dec22"
@@ -69,8 +70,6 @@ tokens:
     name: "Wrapped Staked ETH"
     symbol: "wstETH"
     decimals: 18
-    exchange_rate_api: "https://api.lido.fi/v1/steth/price"
-    exchange_rate_field: "stEthExchangeRate"
     addresses:
       ethereum: "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0"
       arbitrum: "0x5979D7b546E38E414F7E9822514be443A4800529"
@@ -83,8 +82,6 @@ tokens:
     name: "Staked ETH"
     symbol: "stETH"
     decimals: 18
-    exchange_rate_api: "https://api.lido.fi/v1/steth/price"
-    exchange_rate_field: "stEthExchangeRate"
     addresses:
       ethereum: "0xae7ab96520de3a18e5e111b5eaab095312d7fe84"
       
@@ -92,7 +89,6 @@ tokens:
     name: "Frax Ether"
     symbol: "frxETH"
     decimals: 18
-    exchange_rate_api: null  # Need to implement on-chain query
     addresses:
       ethereum: "0x5e8422345238f34275888049021821e8e08caa1f"
       linea: "0xb1afd04774c02ae84692619448b08ba79f19b1ff"
@@ -102,7 +98,6 @@ tokens:
     name: "Staked Frax Ether"
     symbol: "sfrxETH"
     decimals: 18
-    exchange_rate_api: null  # Need to implement on-chain query
     addresses:
       ethereum: "0xac3e018457b222d93114458476f3e3416abbe38f"
       optimism: "0x484c2d6e3cdd945a8b2df735e079178c1036578c"
@@ -111,7 +106,6 @@ tokens:
     name: "Mantle Staked ETH"
     symbol: "METH"
     decimals: 18
-    exchange_rate_api: null  # Need to implement
     addresses:
       mantle: "0xcda86a272531e8640cd7f1a92c01839911b90bb0"
       ethereum: "0xd5f7838f5c461feff7fe49ea5ebaf7728bb0adfa"
