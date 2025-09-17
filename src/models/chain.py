@@ -8,6 +8,7 @@ class Chain:
     name: str
     native_token: str
     wrapped_native: str
+    weth_address: Optional[str] = None
     rpc_url: Optional[str] = None
 
     def __hash__(self):

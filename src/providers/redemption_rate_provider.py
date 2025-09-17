@@ -78,8 +78,8 @@ class RedemptionRateProvider:
         # Check cache first
         if self._is_cache_valid(token.symbol):
             rate, timestamp = self._rate_cache[token.symbol]
-            age = int(time() - timestamp)
-            print(f"Cache hit for {token.symbol}: {rate} (age: {age}s)")
+            # age = int(time() - timestamp)
+            # print(f"Cache hit for {token.symbol}: {rate} (age: {age}s)")
             return rate
 
         # Try each provider in order until one returns a valid rate
@@ -92,7 +92,7 @@ class RedemptionRateProvider:
                         # Cache the rate with current timestamp
                         self._rate_cache[token.symbol] = (rate, time())
                         provider_name = provider.__class__.__name__
-                        print(f"Got {token.symbol} rate from {provider_name}: {rate}")
+                        # print(f"Got {token.symbol} rate from {provider_name}: {rate}")
                         return rate
                     
                 except Exception as e:

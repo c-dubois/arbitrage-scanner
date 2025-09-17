@@ -66,7 +66,8 @@ class Settings:
                 id=chain_data['id'],
                 name=chain_data['name'],
                 native_token=chain_data['native_token'],
-                wrapped_native=chain_data['wrapped_native']
+                wrapped_native=chain_data['wrapped_native'],
+                weth_address=chain_data.get('weth_address')
             )
             chains.append(chain)
         return chains

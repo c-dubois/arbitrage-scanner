@@ -94,7 +94,7 @@ async def main(args):
 
                 # Print results in a table
                 print("\n✅ Best trade size for each route:\n")
-                headers = ["Chain", "Token", "Best Trade Size (ETH)", "Principal + Return", "Profit", "Profit %", "Redemption Rate"]
+                headers = ["Chain", "Token", "Best Trade Size (ETH)", "Principal + Profit", "Profit", "Profit %", "Redemption Rate"]
                 print(tabulate(table_data, headers=headers, tablefmt="grid"))
 
                 # Show best overall opportunity
