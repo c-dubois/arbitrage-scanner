@@ -73,7 +73,7 @@ class OnchainRateProvider(BaseRateProvider):
                 'args': [10**18] # 1 METH -> returns ETH amount
             },
             'sfrxETH': {
-                'address': '0xac3E018457B222d9311445847689839724446d9f',
+                'address': '0xac3E018457B222d93114458476f3E3416Abbe38F',
                 'abi': [{
                     "inputs": [{"name": "shares", "type": "uint256"}],
                     "name": "convertToAssets",
@@ -158,7 +158,7 @@ class OnchainRateProvider(BaseRateProvider):
             # Convert raw result (in wei) to Decimal ETH amount (divide by 10^18)
             rate = Decimal(str(raw_result)) / Decimal(10**18)
             print(f"On-chain rate for {symbol}: {rate}")
-            
+
             return rate
         
         except Exception as e:
