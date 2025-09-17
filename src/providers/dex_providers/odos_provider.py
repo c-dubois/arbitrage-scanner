@@ -104,6 +104,7 @@ class OdosProvider(BaseDexProvider):
             return response
         
         except Exception as e:
+            print(f"{from_token.symbol}->{to_token.symbol} {chain.name} not working")
             print(f"Error fetching quote from ODOS: {e}")
             return None
         

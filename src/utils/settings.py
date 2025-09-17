@@ -80,6 +80,7 @@ class Settings:
                 name=token_data['name'],
                 symbol=token_data['symbol'],
                 decimals=token_data['decimals'],
+                exchange_rate_api=token_data.get("exchange_rate_api"),
                 addresses=token_data.get("addresses", {})
             )
             tokens[token_symbol] = token

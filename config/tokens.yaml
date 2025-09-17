@@ -63,17 +63,17 @@ tokens:
     exchange_rate_api: "https://api-public.sandbox.pro.coinbase.com/wrapped-assets/CBETH/conversion-rate"
     addresses:
       ethereum: "0xbe9895146f7af43049ca1c1ae358b0541ea49704"
-      arbitrum: "0x2ae3f1ec7f1f5012cfeab0185bfc7aa3cf0dec22"
-      base: "0x1debd73e752beaf79865fd6446b0c970eae7732f"
+      arbitrum: "0x1DEBd73E752bEaF79865Fd6446b0c970EaE7732f"
+      base: "0x2Ae3F1Ec7F1F5012CFEab0185bfc7aa3cf0DEc22"
       
   wstETH:
     name: "Wrapped Staked ETH"
     symbol: "wstETH"
     decimals: 18
     addresses:
-      ethereum: "0x7f39c581f595b53c5cb19bd0b3f8da6c935e2ca0"
+      ethereum: "0x7f39C581F595B53c5cb19bD0b3f8dA6c935E2Ca0"
       arbitrum: "0x5979D7b546E38E414F7E9822514be443A4800529"
-      base: "0xc1cba3fcea344f92d9239c08c0568f6f2f0ee452"
+      base: "0xc1CBa3fCea344f92D9239c08C0568f6F2F0ee452"
       linea: "0xB5beDd42000b71FddE22D3eE8a79Bd49A568fC8F"
       unichain: "0xc02fe7317d4eb8753a02c35fe019786854a92001"
       polygon: "0x03b54a6e9a984069379fae1a4fc4dbae93b3bccd"
@@ -83,32 +83,33 @@ tokens:
     symbol: "stETH"
     decimals: 18
     addresses:
-      ethereum: "0xae7ab96520de3a18e5e111b5eaab095312d7fe84"
+      ethereum: "0xae7ab96520DE3A18E5e111B5EaAb095312D7fE84"
       
   frxETH:
     name: "Frax Ether"
     symbol: "frxETH"
     decimals: 18
     addresses:
-      ethereum: "0x5e8422345238f34275888049021821e8e08caa1f"
-      linea: "0xb1afd04774c02ae84692619448b08ba79f19b1ff"
-      fraxtal: "0xfc00000000000000000000000000000000000006"
+      ethereum: "0x5E8422345238F34275888049021821E8E08CAa1f"
+      linea: "0xB1aFD04774c02AE84692619448B08BA79F19b1ff"
+      fraxtal: "0xFC00000000000000000000000000000000000006"
       
   sfrxETH:
     name: "Staked Frax Ether"
     symbol: "sfrxETH"
     decimals: 18
     addresses:
-      ethereum: "0xac3e018457b222d93114458476f3e3416abbe38f"
-      optimism: "0x484c2d6e3cdd945a8b2df735e079178c1036578c"
-      
+      ethereum: "0xac3E018457B222d93114458476f3E3416Abbe38F"
+      optimism: "0x3Ec3849C33291a9eF4c5dB86De593EB4A37fDe45"
+      fraxtal: "0xFC00000000000000000000000000000000000005"
+
   METH:
     name: "Mantle Staked ETH"
     symbol: "METH"
     decimals: 18
     addresses:
-      mantle: "0xcda86a272531e8640cd7f1a92c01839911b90bb0"
-      ethereum: "0xd5f7838f5c461feff7fe49ea5ebaf7728bb0adfa"
+      mantle: "0xcDA86A272531e8640cD7F1a92c01839911B90bb0"
+      ethereum: "0xd5F7838F5C461fefF7FE49ea5ebaF7728bB0ADfa"
 
 providers:
   odos:
