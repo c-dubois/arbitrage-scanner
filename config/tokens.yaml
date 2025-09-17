@@ -40,9 +40,7 @@ chains:
     name: "Mantle"
     native_token: "MNT"
     wrapped_native: "0x78c1b0c915c4faa5fffa6cabf0219da63d7f4cb8"
-    base_token: "ETH"
-    wrapped_base: "0xdEAddEaDdeadDEadDEADDEAddEADDEAddead1111"
-
+    weth_address: "0xdEAddEaDdeadDEadDEADDEAddEADDEAddead1111"
     
   unichain:
     id: "130"
@@ -55,12 +53,14 @@ chains:
     name: "Polygon"
     native_token: "MATIC"
     wrapped_native: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270"
+    weth_address: "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"
 
 tokens:
   cbETH:
     name: "Coinbase Wrapped Staked ETH"
     symbol: "cbETH"
     decimals: 18
+    exchange_rate_api: "https://api-public.sandbox.pro.coinbase.com/wrapped-assets/CBETH/conversion-rate"
     addresses:
       ethereum: "0xbe9895146f7af43049ca1c1ae358b0541ea49704"
       arbitrum: "0x2ae3f1ec7f1f5012cfeab0185bfc7aa3cf0dec22"

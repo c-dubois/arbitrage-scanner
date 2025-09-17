@@ -63,7 +63,7 @@ class OdosProvider(BaseDexProvider):
         raw_amount = from_token.convert_decimal_to_raw_amount(amount)
 
         payload = {
-            "chainID": int(chain.id),
+            "chainId": int(chain.id),
             "inputTokens": [
                 {
                     "tokenAddress": from_address,
@@ -130,4 +130,4 @@ class OdosProvider(BaseDexProvider):
             raw_amount = quote_data.get('toAmount', 0)
         
         # Use token's conversion method
-        return token.convert_raw_to_decimal_amount(raw_amount)
+        return token.convert_raw_amount_to_decimal(raw_amount)

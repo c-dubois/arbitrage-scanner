@@ -118,10 +118,28 @@ class ArbitrageScanner:
         Returns:
             An ArbitrageOpportunity object if found, else None.
         """
-        # base_token = self.tokens.get(chain.native_token)
-        base_t
-        print(self.tokens)
-        print(chain.native_token)
+        # Determine base token based on chain
+        if chain.native_token == "ETH":
+            # On ETH chains, use wrapped native (WETH)
+            base_token = self.tokens.get("ETH")
+            base_token = Token(
+            name="Wrapped Ether",
+            symbol="WETH",
+            decimals=18,
+            addresses={chain.name.lower(): chain.wrapped_native}
+        )
+        else:
+            # On non-ETH chains, use actual WETH if available
+            if not hasattr(chain, 'weth_address') or not chain.weth_address:
+                print(f"Skipping {chain.name} - no WETH address configured")
+                return None
+            
+            base_token = Token(
+                name="Wrapped Ether",
+                symbol="WETH",
+                decimals=18,
+                addresses={chain.name.lower(): chain.weth_address}
+            )
 
         # Get a quote for base_token -> token
         quote = await dex_provider.get_quote(
