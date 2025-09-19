@@ -122,10 +122,18 @@ class ArbitrageScanner:
         base_token = self.tokens.get("WETH")
         if not base_token:
             raise ValueError("WETH token not found in configuration")
+        
+        # Skip if trying to trade same token (WETH -> WETH)
+        if token.symbol == base_token.symbol:
+            return None
     
         # Verify WETH is available on this chain
         if not base_token.is_available_on_chain(chain.name):
             print(f"WETH not available on {chain.name}")
+            return None
+        
+        # Verify target token is available on this chain
+        if not token.is_available_on_chain(chain.name):
             return None
 
         # Get a quote for base_token (WETH) -> token (LST)

@@ -9,8 +9,6 @@ from .rate_providers.api_rate_provider import APIRateProvider
 from .rate_providers.onchain_rate_provider import OnchainRateProvider
 from ..models.token import Token
 
-#want to change this so api rate is not cached? since just cbeth?
-
 class RedemptionRateProvider:
     """
     Coordinates redemption rate providers (API and on-chain) with TTL-based caching.
@@ -43,7 +41,7 @@ class RedemptionRateProvider:
         self.cache_ttl = cache_ttl
         self.api_cache_ttl = api_cache_ttl
 
-        print(f"Redemption rate cache TTL set to {self.cache_ttl} seconds")
+        print(f"Redemption rate on-chain cache TTL set to {self.cache_ttl} seconds")
         print(f"Redemption rate API cache TTL set to {self.api_cache_ttl} seconds")
 
     async def __aenter__(self):
