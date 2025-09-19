@@ -405,7 +405,7 @@ logger.info("Found opportunity", extra={
 
 ### Common Issues
 
-## "ModuleNotFoundError"
+#### "ModuleNotFoundError"
 
 ```bash
 # Make sure virtual environment is activated
@@ -413,19 +413,19 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## "No opportunities found"
+#### "No opportunities found"
 
 - Market conditions may not have profitable arbitrage
 - Try different trade sizes or chains
 - Check if API endpoints are accessible
 
-## API Rate Limiting
+#### API Rate Limiting
 
 - Add delays between requests in settings
 - Get API keys for higher rate limits
 - Use multiple RPC endpoints
 
-## Connection Errors
+#### Connection Errors
 
 - Check internet connection
 - Verify RPC URL is working
