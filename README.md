@@ -102,22 +102,27 @@ touch .env  # Mac/Linux
 Add these variables to your `.env` file:
 
 ```env
+# API Keys (optional - some providers work without keys)
+ONE_INCH_API_KEY=your_api_key_here
+ODOS_API_KEY=your_api_key_here
+
 # RPC Configuration (for blockchain data)
 RPC_URL=https://eth.llamarpc.com
 
-# API Keys (optional - some providers work without keys)
-ODOS_API_KEY=your_odos_api_key_here
-ONE_INCH_API_KEY=your_1inch_api_key_here
+# Trade Size Configuration
+# Min and Max in ETH
+MIN_TRADE_SIZE_ETH=100
+MAX_TRADE_SIZE_ETH=2000
+# Step multiplier (e.g., 2 = 10, 20, 40, 80, 160, 320, 640, 1280, 2560, 5120, 10000)
+TRADE_SIZE_MULTIPLIER=1.5
 
-# Trade Size Configuration (in ETH)
-MIN_TRADE_SIZE_ETH=10
-MAX_TRADE_SIZE_ETH=10000
-TRADE_SIZE_MULTIPLIER=2
-
-# Scanner Settings
+# Scanner Configuration
 SCAN_INTERVAL_SECONDS=60
 REQUEST_TIMEOUT_SECONDS=30
-REDEMPTION_RATE_CACHE_TTL=60
+
+# Caching Configuration
+ON_CHAIN_CACHE_TTL=60
+API_CACHE_TTL=30
 ```
 
 **Note**: The program will work with the default RPC URL and without API keys for basic functionality.
