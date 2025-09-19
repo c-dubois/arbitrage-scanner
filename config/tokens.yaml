@@ -56,6 +56,21 @@ chains:
     weth_address: "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"
 
 tokens:
+  WETH:
+    name: "Wrapped Ether"
+    symbol: "WETH"
+    decimals: 18
+    addresses:
+      ethereum: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+      arbitrum: "0x82af49447d8a07e3bd95bd0d56f35241523fbab1"
+      base: "0x4200000000000000000000000000000000000006"
+      optimism: "0x4200000000000000000000000000000000000006"
+      linea: "0xe5d7c2a44ffddf6b295a15c148167daaaf5cf34f"
+      fraxtal: "0xfc00000000000000000000000000000000000004"
+      mantle: "0xdEAddEaDdeadDEadDEADDEAddEADDEAddead1111"
+      unichain: "0x4200000000000000000000000000000000000006"
+      polygon: "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"
+
   cbETH:
     name: "Coinbase Wrapped Staked ETH"
     symbol: "cbETH"
@@ -91,6 +106,7 @@ tokens:
     decimals: 18
     addresses:
       ethereum: "0x5E8422345238F34275888049021821E8E08CAa1f"
+      optimism: "0x6806411765Af15Bddd26f8f544A34cC40cb9838B"
       linea: "0xB1aFD04774c02AE84692619448B08BA79F19b1ff"
       fraxtal: "0xFC00000000000000000000000000000000000006"
       
@@ -101,6 +117,7 @@ tokens:
     addresses:
       ethereum: "0xac3E018457B222d93114458476f3E3416Abbe38F"
       optimism: "0x3Ec3849C33291a9eF4c5dB86De593EB4A37fDe45"
+      linea: "0x383Eac7CcaA89684b8277cBabC25BCa8b13B7Aa2"
       fraxtal: "0xFC00000000000000000000000000000000000005"
 
   METH:
@@ -122,6 +139,7 @@ providers:
       - linea
       - fraxtal
       - polygon
+      - unichain
       
   oneinch:
     base_url: "https://api.1inch.dev"
