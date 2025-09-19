@@ -464,7 +464,3 @@ If you encounter issues:
 2. Verify your `.env` configuration
 3. Test with smaller trade sizes first
 4. Check the console output for specific error messages
-
----
-
-**Disclaimer**: This software is for educational and research purposes. Cryptocurrency trading involves risk. Always test with small amounts first and understand the risks involved.
