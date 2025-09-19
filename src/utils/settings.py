@@ -36,8 +36,9 @@ class Settings:
         self.scan_interval = int(os.getenv("SCAN_INTERVAL_SECONDS", "60"))
         self.request_timeout = int(os.getenv("REQUEST_TIMEOUT_SECONDS", "30"))
 
-        # Redemption rate cache TTL
-        self.redemption_rate_cache_ttl = int(os.getenv("REDEMPTION_RATE_CACHE_TTL", "60"))
+        # On-chain and API cache TTLs
+        self.on_chain_cache_ttl = int(os.getenv("ON_CHAIN_CACHE_TTL", "60"))
+        self.api_cache_ttl = int(os.getenv("API_CACHE_TTL", "30"))
 
     def get_trade_sizes(self) -> List[Decimal]:
         """

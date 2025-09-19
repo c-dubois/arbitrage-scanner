@@ -5,7 +5,6 @@ from decimal import Decimal
 @dataclass
 class Token:
     """Represents a cryptocurrency token."""
-
     name: str
     symbol: str
     decimals: int

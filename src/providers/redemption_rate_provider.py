@@ -19,13 +19,14 @@ class RedemptionRateProvider:
     It manages multiple sub-providers and caches results to minimize API/RPC calls.
     """
 
-    def __init__(self, rpc_url: str = "https://eth.llamarpc.com", cache_ttl: int = 60):
+    def __init__(self, rpc_url: str = "https://eth.llamarpc.com", cache_ttl: int = 60, api_cache_ttl: int = 30):
         """
         Initialize the redemption rate provider.
         
         Args:
             rpc_url: Ethereum RPC endpoint for on-chain calls
-            cache_ttl: Cache time-to-live in seconds (default: 60)
+            cache_ttl: Cache time-to-live in seconds for on-chain rates (default: 60)
+            api_cache_ttl: Cache time-to-live in seconds for API rates (default: 30)
         """
         # Initialize sub-providers
         self.api_provider = APIRateProvider()
@@ -40,8 +41,10 @@ class RedemptionRateProvider:
         # Cache with TTL: {token_symbol: (rate, timestamp)}
         self._rate_cache: Dict[str, Tuple[Decimal, float]] = {}
         self.cache_ttl = cache_ttl
+        self.api_cache_ttl = api_cache_ttl
 
         print(f"Redemption rate cache TTL set to {self.cache_ttl} seconds")
+        print(f"Redemption rate API cache TTL set to {self.api_cache_ttl} seconds")
 
     async def __aenter__(self):
         """Async context manager entry: initialize sub-providers / async resources."""
@@ -58,8 +61,13 @@ class RedemptionRateProvider:
         """Check if the cached rate for the token is still valid based on TTL."""
         if token_symbol in self._rate_cache:
             _, timestamp = self._rate_cache[token_symbol]
-            if (time() - timestamp) < self.cache_ttl:
+
+            # Use different TTL based on token type
+            ttl = self.api_cache_ttl if token_symbol in self.api_provider.get_supported_tokens else self.cache_ttl
+
+            if (time() - timestamp) < ttl:
                 return True
+        
         return False
     
     async def get_redemption_rate(self, token: Token) -> Optional[Decimal]:
@@ -122,11 +130,15 @@ class RedemptionRateProvider:
 
         for symbol, (rate, timestamp) in self._rate_cache.items():
             age = int(current_time - timestamp)
+
+            # Determine which TTL applies to this token
+            ttl = self.api_cache_ttl if symbol in self.api_provider.get_supported_tokens else self.cache_ttl
+            
             status[symbol] = {
                 'rate': float(rate),
                 'age_seconds': age,
-                'is_valid': age < self.cache_ttl,
-                'expires_in_seconds': max(0, self.cache_ttl - age)
+                'is_valid': age < ttl,
+                'expires_in_seconds': max(0, ttl - age)
             }
 
         return status

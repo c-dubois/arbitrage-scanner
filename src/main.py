@@ -43,7 +43,8 @@ async def main(args):
     # Initialize Redemption Rate Provider
     redemption_rate_provider = RedemptionRateProvider(
         rpc_url=settings.rpc_url,
-        cache_ttl=settings.redemption_rate_cache_ttl
+        cache_ttl=settings.on_chain_cache_ttl,
+        api_cache_ttl=settings.api_cache_ttl
         )
 
     # Initialize Arbitrage Scanner
@@ -135,8 +136,6 @@ def parse_arguments():
         help="Run the scanner in continuous mode, scanning at regular intervals."
     )
     return parser.parse_args()
-
-#double check this syntax 
 
 if __name__ == "__main__":
     args = parse_arguments()
