@@ -4,56 +4,63 @@ chains:
     name: "Ethereum"
     native_token: "ETH"
     wrapped_native: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
-    
+  
   arbitrum:
     id: "42161"
     name: "Arbitrum One"
     native_token: "ETH"
     wrapped_native: "0x82af49447d8a07e3bd95bd0d56f35241523fbab1"
-    
+  
   base:
     id: "8453"
     name: "Base"
     native_token: "ETH"
     wrapped_native: "0x4200000000000000000000000000000000000006"
-    
+  
   optimism:
     id: "10"
     name: "Optimism"
     native_token: "ETH"
     wrapped_native: "0x4200000000000000000000000000000000000006"
-    
+  
   linea:
     id: "59144"
     name: "Linea"
     native_token: "ETH"
     wrapped_native: "0xe5d7c2a44ffddf6b295a15c148167daaaf5cf34f"
-    
+  
   fraxtal:
     id: "252"
     name: "Fraxtal"
     native_token: "ETH"
     wrapped_native: "0xfc00000000000000000000000000000000000004"
-    
+  
   mantle:
     id: "5000"
     name: "Mantle"
     native_token: "MNT"
     wrapped_native: "0x78c1b0c915c4faa5fffa6cabf0219da63d7f4cb8"
     weth_address: "0xdEAddEaDdeadDEadDEADDEAddEADDEAddead1111"
-    
+  
   unichain:
     id: "130"
     name: "Unichain"
     native_token: "ETH"
     wrapped_native: "0x4200000000000000000000000000000000000006"
-    
+  
   polygon:
     id: "137"
     name: "Polygon"
     native_token: "MATIC"
     wrapped_native: "0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270"
     weth_address: "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"
+
+  sonic:
+    id: "146"
+    name: "Sonic"
+    native_token: "S"
+    wrapped_native: "0x039e2fB66102314Ce7b64Ce5Ce3E5183bc94aD38"
+    weth_address: "0x50c42dEAcD8Fc9773493ED674b675bE577f2634b"
 
 tokens:
   WETH:
