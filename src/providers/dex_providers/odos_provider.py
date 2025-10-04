@@ -21,6 +21,7 @@ class OdosProvider(BaseDexProvider):
         "linea": "59144",
         "fraxtal": "252",
         "unichain": "130",
+        "sonic": "146"
     }
 
     def is_chain_supported(self, chain: Chain) -> bool:

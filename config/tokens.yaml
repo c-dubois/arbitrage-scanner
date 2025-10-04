@@ -167,6 +167,7 @@ providers:
       - fraxtal
       - polygon
       - unichain
+      - sonic
       
   oneinch:
     base_url: "https://api.1inch.dev"
