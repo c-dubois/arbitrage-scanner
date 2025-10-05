@@ -10,7 +10,7 @@ from ...models.token import Token
 class OnchainRateProvider(BaseRateProvider):
     """Handles on-chain exchange rate fetching for LSTs like stETH, METH, wstETH, sfrxETH."""
 
-    SUPPORTED_TOKENS = {'wstETH', 'stETH', 'METH', 'sfrxETH', 'frxETH', 'stS', 'oS', 'anS'}
+    SUPPORTED_TOKENS = {'wstETH', 'stETH', 'METH', 'sfrxETH', 'frxETH', 'stS', 'OS', 'anS'}
 
     def __init__(self, rpc_url: str = "https://eth.llamarpc.com"):
         """Initialize the provider with RPC URL.
@@ -112,7 +112,7 @@ class OnchainRateProvider(BaseRateProvider):
                 'method': 'convertToAssets',
                 'args': [10**18]  # 1 stS -> returns S amount
             },
-            'oS': {
+            'OS': {
                 # oS is 1:1 with S
                 'static_rate': Decimal('1.0')
             },

@@ -96,6 +96,12 @@ class OdosProvider(BaseDexProvider):
                 headers={"Content-Type": "application/json"}
             )
 
+            print(f"\n=== ODOS Response for {from_token.symbol}->{to_token.symbol} on {chain.name} ===")
+            print(f"Input amount: {raw_amount}")
+            print(f"Output amount: {response.get('outAmounts', 'N/A')}")
+            print(f"Full response: {response}")
+            print("="*60)
+
             if response and 'outAmounts' in response:
                 # ODOS returns amounts in array format
                 output_amount = int(response['outAmounts'][0])

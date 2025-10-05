@@ -77,6 +77,7 @@ tokens:
       mantle: "0xdEAddEaDdeadDEadDEADDEAddEADDEAddead1111"
       unichain: "0x4200000000000000000000000000000000000006"
       polygon: "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619"
+      sonic: "0x50c42dEAcD8Fc9773493ED674b675bE577f2634b"
   
   cbETH:
     name: "Coinbase Wrapped Staked ETH"
@@ -140,18 +141,18 @@ tokens:
     decimals: 18
     rpc_url: "https://rpc.soniclabs.com"
     addresses:
-      sonic: "0xe5da20f15420ad15de0fa650600afc998bbe3955"
+      sonic: "0xE5DA20F15420aD15DE0fa650600aFc998bbE3955"
   
-  oS:
-    name: "Orbit Sonic"
-    symbol: "oS"
+  OS:
+    name: "Origin Sonic"
+    symbol: "OS"
     decimals: 18
     rpc_url: "https://rpc.soniclabs.com"
     addresses:
-      sonic: "0xb1e25689d55734fd3fffc939c4c3eb52dff8a794"
+      sonic: "0xb1e25689D55734FD3ffFc939c4C3Eb52DFf8A794"
   
   anS:
-    name: "Ankr Sonic"
+    name: "Angles Staked Sonic"
     symbol: "anS"
     decimals: 18
     rpc_url: "https://rpc.soniclabs.com"
