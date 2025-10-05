@@ -138,6 +138,7 @@ tokens:
     name: "Staked Sonic"
     symbol: "stS"
     decimals: 18
+    rpc_url: "https://rpc.soniclabs.com"
     addresses:
       sonic: "0xe5da20f15420ad15de0fa650600afc998bbe3955"
   
@@ -145,6 +146,7 @@ tokens:
     name: "Orbit Sonic"
     symbol: "oS"
     decimals: 18
+    rpc_url: "https://rpc.soniclabs.com"
     addresses:
       sonic: "0xb1e25689d55734fd3fffc939c4c3eb52dff8a794"
   
@@ -152,6 +154,7 @@ tokens:
     name: "Ankr Sonic"
     symbol: "anS"
     decimals: 18
+    rpc_url: "https://rpc.soniclabs.com"
     addresses:
       sonic: "0x0C4E186Eae8aCAA7F7de1315D5AD174BE39Ec987"
 
