@@ -16,26 +16,38 @@ class OnchainRateProvider(BaseRateProvider):
         """Initialize the provider with RPC URL.
 
         Args:
-            rpc_url: The RPC URL of the Ethereum node.
+            rpc_url: The RPC URL of the blockchain node.
         """
         self.rpc_url = rpc_url
         self.web3: Optional[AsyncWeb3] = None
+        self.web3_connections: Dict[str, AsyncWeb3] = {}  # Cache connections by RPC URL
         self.contracts = self._init_contracts()
 
     async def __aenter__(self):
         """Async context manager entry: initialize async Web3 connection"""
-        self.web3 = AsyncWeb3(AsyncHTTPProvider(self.rpc_url))
+        self.web3_connections[self.rpc_url] = AsyncWeb3(AsyncHTTPProvider(self.rpc_url))
+        self.web3 = self.web3_connections[self.rpc_url]  # Keep for backward compatibility
         return self
     
     async def __aexit__(self, exc_type, exc_val, exc_tb):
-        """Async context manager exit: close async Web3 connection"""
-        if self.web3 and hasattr(self.web3, 'provider'):
+        """Async context manager exit: close all async Web3 connections"""
+        for rpc_url, web3_conn in self.web3_connections.items():
             try:
-                if hasattr(self.web3.provider, 'session'):
-                    await self.web3.provider.session.close()
+                if hasattr(web3_conn.provider, 'session'):
+                    await web3_conn.provider.session.close()
             except Exception as e:
-                print(f"Error closing Web3 session: {e}")
+                print(f"Error closing {rpc_url} session: {e}")
+        self.web3_connections.clear()
         self.web3 = None
+
+    async def _get_web3_for_rpc(self, rpc_url: str) -> AsyncWeb3:
+        """Get or create a Web3 connection for the given RPC URL."""
+        if rpc_url == self.rpc_url and rpc_url not in self.web3_connections:
+            raise RuntimeError("Web3 not initialized. Use 'async with' context manager.")
+        
+        if rpc_url not in self.web3_connections:
+            self.web3_connections[rpc_url] = AsyncWeb3(AsyncHTTPProvider(rpc_url))
+        return self.web3_connections[rpc_url]
 
     def _init_contracts(self) -> Dict[str, Dict[str, Any]]:
         """Initialize contract configurations with ABIs and addresses for supported tokens.
@@ -148,27 +160,30 @@ class OnchainRateProvider(BaseRateProvider):
             return config['static_rate']
         
         try:
-            return await self._call_contract(token.symbol, config)
+            return await self._call_contract(token, config)
         except Exception as e:
             print(f"Error fetching {token.symbol} on-chain rate: {e}")
             return None
         
-    async def _call_contract(self, symbol: str, config: Dict[str, Any]) -> Optional[Decimal]:
+    async def _call_contract(self, token: Token, config: Dict[str, Any]) -> Optional[Decimal]:
         """Call the contract method to get the exchange rate.
         
         Args:
-            symbol: The token symbol.
+            token: The token object (contains symbol and optional rpc_url).
             config: The contract configuration dictionary.
             
         Returns:
             The exchange rate as a Decimal, or None if unavailable.
         """
-        if not self.web3:
-            raise RuntimeError("Web3 not initialized. Use async context manager.")
+        # Use token's RPC if specified, otherwise use default
+        if token.rpc_url:
+            web3_instance = await self._get_web3_for_rpc(token.rpc_url)
+        else:
+            web3_instance = await self._get_web3_for_rpc(self.rpc_url)
 
         try:
-            contract = self.web3.eth.contract(
-                address=self.web3.to_checksum_address(config['address']),
+            contract = web3_instance.eth.contract(
+                address=web3_instance.to_checksum_address(config['address']),
                 abi=config['abi']
             )
 
@@ -177,10 +192,10 @@ class OnchainRateProvider(BaseRateProvider):
             
             # Convert raw result (in wei) to Decimal ETH amount (divide by 10^18)
             rate = Decimal(str(raw_result)) / Decimal(10**18)
-            print(f"On-chain rate for {symbol}: {rate}")
+            print(f"On-chain rate for {token.symbol}: {rate}")
 
             return rate
         
         except Exception as e:
-            print(f"Contract call failed for {symbol}: {e}")
+            print(f"Contract call failed for {token.symbol}: {e}")
             return None
