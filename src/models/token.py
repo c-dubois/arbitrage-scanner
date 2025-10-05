@@ -9,6 +9,7 @@ class Token:
     symbol: str
     decimals: int
     exchange_rate_api: Optional[str] = None
+    rpc_url: Optional[str] = None
     addresses: Dict[str, str] = field(default_factory=dict)
 
     def get_address(self, chain_name: str) -> Optional[str]:

@@ -82,6 +82,7 @@ class Settings:
                 symbol=token_data['symbol'],
                 decimals=token_data['decimals'],
                 exchange_rate_api=token_data.get("exchange_rate_api"),
+                rpc_url=token_data.get("rpc_url"),
                 addresses=token_data.get("addresses", {})
             )
             tokens[token_symbol] = token
