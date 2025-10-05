@@ -27,6 +27,7 @@ The program scans across 9 blockchain networks and 5 different liquid staking to
 - **Mantle** (Mantle Network)
 - **Unichain** (Uniswap L2)
 - **Polygon** (MATIC network)
+- **Sonic** (Sonic Labs L1)
 
 ### Liquid Staking Tokens
 
@@ -35,6 +36,9 @@ The program scans across 9 blockchain networks and 5 different liquid staking to
 - **stETH** - Lido's rebasing staked ETH
 - **frxETH/sfrxETH** - Frax protocol staking tokens
 - **METH** - Mantle's staked ETH
+- **stS** - Sonic's staked S
+- **oS** - Orbit staked S
+- **anS** - Ankr staked S
 
 ## Prerequisites
 
