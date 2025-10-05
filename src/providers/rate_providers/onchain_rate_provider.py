@@ -89,16 +89,16 @@ class OnchainRateProvider(BaseRateProvider):
                 'static_rate': Decimal('1.0')
             },
             'stS': {
-                'address': '0xD5F7FC8ba92756a34693bAA386Edcc8Dd5B3F141',  # Implementation contract
+                'address': '0xD5F7FC8ba92756a34693bAA386Edcc8Dd5B3F141', # Implementation contract
                 'abi': [{
-                    "inputs": [],
-                    "name": "getRate",
-                    "outputs": [{"internalType": "uint256", "name": "", "type": "uint256"}],
+                    "inputs": [{"name": "sharesAmount", "type": "uint256"}],
+                    "name": "convertToAssets",
+                    "outputs": [{"name": "", "type": "uint256"}],
                     "stateMutability": "view",
                     "type": "function"
                 }],
-                'method': 'getRate',
-                'args': []  # getRate() takes no arguments
+                'method': 'convertToAssets',
+                'args': [10**18]  # 1 stS -> returns S amount
             },
             'oS': {
                 # oS is 1:1 with S
