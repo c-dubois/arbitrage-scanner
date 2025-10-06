@@ -27,9 +27,14 @@ class Settings:
         # RPC URL for on-chain data
         self.rpc_url = os.getenv("RPC_URL", "https://eth.llamarpc.com")
 
-        # Trade size configuration
+        # Trade size configurations
+        # Trade sizes in ETH
         self.min_trade_size_eth = Decimal(os.getenv("MIN_TRADE_SIZE_ETH", "10"))
         self.max_trade_size_eth = Decimal(os.getenv("MAX_TRADE_SIZE_ETH", "10000"))
+        # Trade sizes in S
+        self.min_trade_size_s = Decimal(os.getenv("MIN_TRADE_SIZE_S", "100"))
+        self.max_trade_size_s = Decimal(os.getenv("MAX_TRADE_SIZE_S", "10000"))
+        # Trade size multiplier
         self.trade_size_multiplier = Decimal(os.getenv("TRADE_SIZE_MULTIPLIER", "2")) # or float?
 
         # Scanner settings
@@ -40,9 +45,9 @@ class Settings:
         self.on_chain_cache_ttl = int(os.getenv("ON_CHAIN_CACHE_TTL", "60"))
         self.api_cache_ttl = int(os.getenv("API_CACHE_TTL", "30"))
 
-    def get_trade_sizes(self) -> List[Decimal]:
+    def get_trade_sizes_eth(self) -> List[Decimal]:
         """
-        Generate a list of trade sizes from min to max using exponential stepping multiplier.
+        Generate a list of trade sizes in ETH from min to max using exponential stepping multiplier.
         
         Returns list like: [10, 20, 40, 80, 160, 320, 640, 1280, 2560, 5120, 10000]
         """
@@ -58,7 +63,21 @@ class Settings:
             sizes.append(self.max_trade_size_eth)
 
         return sizes
-    
+
+    def get_trade_sizes_sonic(self) -> List[Decimal]:
+        """Generate trade sizes for Sonic chain in S."""
+        sizes = []
+        current_size = self.min_trade_size_s
+        
+        while current_size <= self.max_trade_size_s:
+            sizes.append(current_size)
+            current_size *= self.trade_size_multiplier
+        
+        if self.max_trade_size_s not in sizes:
+            sizes.append(self.max_trade_size_s)
+        
+        return sizes
+
     def get_chains(self) -> List[Chain]:
         """Load and return list of configured Chain objects."""
         chains = []

@@ -27,9 +27,13 @@ async def main(args):
 
     print(f"🔗 Monitoring chains: {', '.join([chain.name for chain in chains])}")
 
-    # Get trade sizes
-    trade_sizes = settings.get_trade_sizes()
-    print(f"💰 Trade sizes (ETH): {', '.join(map(str, trade_sizes))}")
+    # Get trade sizes in ETH
+    trade_sizes_eth = settings.get_trade_sizes_eth()
+    print(f"💰 Trade sizes (ETH): {', '.join(map(str, trade_sizes_eth))}")
+
+    # Get trade sizes in Sonic (S)
+    trade_sizes_sonic = settings.get_trade_sizes_sonic()
+    print(f"💰 Trade sizes (S): {', '.join(map(str, trade_sizes_sonic))}")
 
     # Initialize DEX providers
     dex_providers = []
@@ -52,7 +56,8 @@ async def main(args):
         providers=dex_providers,
         chains=chains,
         tokens=all_tokens,
-        trade_sizes=trade_sizes,
+        trade_sizes_eth=trade_sizes_eth,
+        trade_sizes_sonic=trade_sizes_sonic,
         redemption_rate_provider=redemption_rate_provider
     )
 
