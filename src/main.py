@@ -100,7 +100,7 @@ async def main(args):
 
                 # Print results in a table
                 print("\n✅ Best trade size for each route:\n")
-                headers = ["Chain", "Token", "Best Trade Size (ETH)", "Principal + Profit", "Profit", "Profit %", "Redemption Rate"]
+                headers = ["Chain", "Token", "Best Trade Size", "Principal + Profit", "Profit", "Profit %", "Redemption Rate"]
                 print(tabulate(table_data, headers=headers, tablefmt="grid"))
 
                 # Show best overall opportunity
@@ -108,7 +108,8 @@ async def main(args):
                 print("\n🏆 BEST OVERALL OPPORTUNITY:")
                 print(f"Chain: {best_opportunity.chain.name}")
                 print(f"Token: {best_opportunity.target_token.symbol}")
-                print(f"Best Trade Size (ETH): {float(best_opportunity.trade_size):.0f}")
+                base_currency = "S" if best_opportunity.chain.name.lower() == "sonic" else "ETH"
+                print(f"Best Trade Size ({base_currency}): {float(best_opportunity.trade_size):.0f}")
                 print(f"Expected Return: {float(best_opportunity.expected_return):.4f}")
                 print(f"Profit: {float(best_opportunity.profit):.4f}")
                 print(f"Profit %: {best_opportunity.profit_percentage:.2f}%")
