@@ -37,7 +37,7 @@ The program scans across 9 blockchain networks and 5 different liquid staking to
 - **frxETH/sfrxETH** - Frax protocol staking tokens
 - **METH** - Mantle's staked ETH
 - **stS** - Sonic's staked S
-- **oS** - Orbit staked S
+- **OS** - Orbit staked S
 - **anS** - Ankr staked S
 
 ## Prerequisites
