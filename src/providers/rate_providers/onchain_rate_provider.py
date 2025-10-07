@@ -112,7 +112,7 @@ class OnchainRateProvider(BaseRateProvider):
                 'args': [10**18]  # 1 stS -> returns S amount
             },
             'OS': {
-                # oS is 1:1 with S
+                # OS is 1:1 with S
                 'static_rate': Decimal('1.0')
             },
             'anS': {
