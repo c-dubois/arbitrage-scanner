@@ -36,7 +36,7 @@ class ArbitrageScanner:
         self.providers = providers
         self.chains = chains
         self.tokens = tokens
-        self.trade_sizes = sorted(trade_sizes_eth)  # Ensure trade sizes are sorted
+        self.trade_sizes_eth = sorted(trade_sizes_eth)  # sorted ETH trade sizes
         self.trade_sizes_sonic = sorted(trade_sizes_sonic) if trade_sizes_sonic else []
         self.redemption_rate_provider = redemption_rate_provider
 
@@ -75,7 +75,7 @@ class ArbitrageScanner:
         """
         if chain.name.lower() == "sonic":
             return self.trade_sizes_sonic
-        return self.trade_sizes
+        return self.trade_sizes_eth
 
     async def scan_all_sizes(self) -> Dict[str, List[ArbitrageOpportunity]]:
         """Scan for arbitrage opportunities across all trade sizes.
@@ -296,7 +296,7 @@ class ArbitrageScanner:
 
                 # Scan all sizes
                 all_opportunities = await self.scan_all_sizes()
-    
+
                 # Find best opportunities
                 best_opportunities = self.find_best_opportunities(all_opportunities)
 
