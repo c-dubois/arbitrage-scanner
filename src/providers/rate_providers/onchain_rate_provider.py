@@ -33,8 +33,7 @@ class OnchainRateProvider(BaseRateProvider):
         """Async context manager exit: close all async Web3 connections"""
         for rpc_url, web3_conn in self.web3_connections.items():
             try:
-                if hasattr(web3_conn.provider, 'session'):
-                    await web3_conn.provider.session.close()
+                await web3_conn.provider.disconnect()
             except Exception as e:
                 print(f"Error closing {rpc_url} session: {e}")
         self.web3_connections.clear()
