@@ -36,9 +36,9 @@ The program scans across 9 blockchain networks and 5 different liquid staking to
 - **stETH** - Lido's rebasing staked ETH
 - **frxETH/sfrxETH** - Frax protocol staking tokens
 - **METH** - Mantle's staked ETH
-- **stS** - Sonic's staked S
-- **OS** - Orbit staked S
-- **anS** - Ankr staked S
+- **stS** - Beets Staked Sonic
+- **OS** - Origin Sonic
+- **anS** - Angles Staked Sonic
 
 ## Prerequisites
 
@@ -117,6 +117,9 @@ RPC_URL=https://eth.llamarpc.com
 # Min and Max in ETH
 MIN_TRADE_SIZE_ETH=100
 MAX_TRADE_SIZE_ETH=2000
+# Min and Max Sonic Trade Size Configuration (in S)
+MIN_TRADE_SIZE_S=1000000
+MAX_TRADE_SIZE_S=10000000
 # Step multiplier (e.g., 2 = 10, 20, 40, 80, 160, 320, 640, 1280, 2560, 5120, 10000)
 TRADE_SIZE_MULTIPLIER=1.5
 
