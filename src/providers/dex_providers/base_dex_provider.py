@@ -83,6 +83,11 @@ class BaseDexProvider(ABC):
             headers['Authorization'] = f'Bearer {self.api_key}'
         
         async with self.session.request(method, url, headers=headers, **kwargs) as response:
+            if response.status >= 400:
+                text = await response.text()
+                print(f"[{self.__class__.__name__}] HTTP {response.status} error for {url}")
+                print(f"Response: {text[:300]}")
+    
             response.raise_for_status()
             return await response.json()
 
