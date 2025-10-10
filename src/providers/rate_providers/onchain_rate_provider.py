@@ -100,7 +100,7 @@ class OnchainRateProvider(BaseRateProvider):
                 'static_rate': Decimal('1.0')
             },
             'stS': {
-                'address': '0xD5F7FC8ba92756a34693bAA386Edcc8Dd5B3F141', # Implementation contract
+                'address': '0xE5DA20F15420aD15DE0fa650600aFc998bbE3955', # Proxy contract
                 'abi': [{
                     "inputs": [{"name": "sharesAmount", "type": "uint256"}],
                     "name": "convertToAssets",

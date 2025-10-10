@@ -203,7 +203,7 @@ class ArbitrageScanner:
         if not token.is_available_on_chain(chain.name):
             return None
 
-        # Get a quote for base_token (WETH) -> token (LST)
+        # Get a quote for base_token, ex: (WETH) -> token (LST)
         quote = await dex_provider.get_quote(
             chain, base_token, token, trade_size
         )
