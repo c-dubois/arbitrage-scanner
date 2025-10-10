@@ -91,7 +91,7 @@ async def main(args):
                     table_data.append([
                         opp.chain.name,
                         f"{opp.target_token.symbol}",
-                        f"{float(opp.trade_size):.0f}",
+                        f"{float(opp.trade_size):.2f}",
                         f"{float(opp.expected_return):.4f}",
                         f"{float(opp.profit):.4f}",
                         f"{opp.profit_percentage:.2f}%",
